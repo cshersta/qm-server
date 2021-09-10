@@ -1,0 +1,113 @@
+{
+  "chatGroups": [
+    {
+      "id": 0,
+      "name": "Chat1",
+      "users": [
+            {
+              "username": "cshersta",
+              "password": "afds",
+              "displayName": "CodyS",
+              "email": "cody.sherstan@gmail.com",
+              "bio": "I like long walks on the beach and changing myself",
+              "date": "2017-12-04T09:41:49.890Z",
+              "id": 1
+            },
+            {
+              "username": "michaelmidgaerd",
+              "password": "afds",
+              "displayName": "Michael",
+              "email": "dafdads@daffas.dfdafd",
+              "bio": "I only like things that are old and outdated",
+              "date": "2017-12-04T09:41:49.890Z",
+              "id": 2
+            },
+        ],
+      "picture": "",
+      "description": "desc",
+      "lastActive": "2021-09-05T09:41:49.890Z"
+    }
+  ],
+  "messages": [
+    {
+      "id": 0,
+      "groupId": 0,
+      "text": "Hey!",
+      "authorId": 1,
+      "date": "2021-9-5T17:57:28.556094Z"
+    },
+    {
+      "id": 1,
+      "groupId": 0,
+      "text": "sup",
+      "authorId": 2,
+      "date": "2021-9-5T17:58:28.556094Z"
+    },
+    {
+      "id": 2,
+      "groupId": 0,
+      "text": "what?!",
+      "authorId": 2,
+      "date": "2021-9-5T17:59:28.556094Z"
+    },
+    {
+      "id": 3,
+      "groupId": 0,
+      "text": "nothin",
+      "authorId": 1,
+      "date": "2021-9-5T18:01:28.556094Z"
+    },
+    {
+      "id": 4,
+      "groupId": 0,
+      "text": "okay...",
+      "authorId": 2,
+      "date": "2021-9-5T18:02:28.556094Z"
+    },
+    {
+      "id": 5,
+      "groupId": 0,
+      "text": ":D",
+      "authorId": 1,
+      "date": "2021-9-5T18:03:28.556094Z"
+    },
+  ],
+  "users": [
+    {
+      "username": "cshersta",
+      "password": "afds",
+      "displayName": "CodyS",
+      "email": "cody.sherstan@gmail.com",
+      "bio": "I like long walks on the beach and changing myself",
+      "date": "2017-12-04T09:41:49.890Z",
+      "id": 1
+    },
+    {
+      "username": "michaelmidgaerd",
+      "password": "afds",
+      "displayName": "Michael",
+      "email": "dafdads@daffas.dfdafd",
+      "bio": "I only like things that are old and outdated",
+      "date": "2017-12-04T09:41:49.890Z",
+      "id": 2
+    },
+    {
+      "username": "pam1234",
+      "password": "afds",
+      "displayName": "Pan",
+      "email": "dafdads@daffas.dfdafd",
+      "bio": "I only like dudes with money",
+      "date": "2017-12-04T09:41:49.890Z",
+      "id": 3
+    },
+    {
+      "username": "jw",
+      "password": "afds",
+      "displayName": "Joelean",
+      "email": "dafdads@daffas.dfdafd",
+      "bio": "no judgy... I'm judging you",
+      "date": "2017-12-04T09:41:49.890Z",
+      "id": 4
+    }
+  ]
+}
