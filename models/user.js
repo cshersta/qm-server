@@ -9,6 +9,14 @@ var User = new Schema({
         unique: true,
         required: true
     },
+    firstname: {
+        type: String,
+        default: ''
+    },
+    lastname: {
+        type: String,
+        default: ''
+    },
     password: {
         type: String,
         default: '',

@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 //var passportLocalMongoose = require('passport-local-mongoose');
 
 var ChatGroup = new Schema({
-    users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
+    //users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
+    users: [{ type: String, default:'' }],
     name: {
         type: String,
         default: ''
