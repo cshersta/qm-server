@@ -14,9 +14,10 @@ class Connection {
 
       socket.on('getMessages', (user, chatGroup) => this.getMessages(user, chatGroup));
     socket.on('message', (message) => this.handleMessage(message));
-    socket.on('signUp', (user) => this.signUp(user));
+    socket.on('signUp', (user, fn) => this.signUp(user, fn));
     socket.on('disconnect', () => this.disconnect());
-    socket.on("getUser", (user, fn) => this.getUser(user, fn));
+      socket.on("getUser", (user, fn) => this.getUser(user, fn));
+      socket.on("authenticate", (user, fn) => this.authenticate(user, fn));
       socket.on("getChatGroup", (userArray, fn) => this.getChatGroup(userArray, fn));
       socket.on("getGroupsByUser", (username) => this.getGroupsByUser(username));
     socket.on("getSelfChatGroup", (username, fn) => this.getSelfChatGroup(username, fn));
@@ -62,11 +63,11 @@ class Connection {
       });
     }
 
-    signUp(user) {
+    signUp(user, fn) {
 
-        User.create({ username: user.userName, password : user.password}).then((newUser) => {
-            console.log(newUser);
-        });
+        User.create({ username: user.userName, password: user.password })
+            .then(result => fn(result))
+            .catch(err =>  fn(err));
     }
 
     getUser(user, fn) {
@@ -80,7 +81,21 @@ class Connection {
             }
             console.log(user);
             fn(user);
-        });
+        }).catch(err => fn(err));
+    }
+
+    authenticate(user, fn) {
+        User.find({ username: user.username, password: user.password }).then((userReturn) => {
+            console.log(userReturn);
+            let user = {
+                username: userReturn[0].username,
+                firstname: userReturn[0].firstname,
+                lastname: userReturn[0].lastname,
+                image: userReturn[0].image
+            }
+            console.log(user);
+            fn(user);
+        }).catch(err => fn(err));
     }
 
     getChatGroup(userArray, fn) {
