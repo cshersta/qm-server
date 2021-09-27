@@ -15,8 +15,9 @@ class Connection {
       socket.on('getMessages', (user, chatGroup) => this.getMessages(user, chatGroup));
     socket.on('message', (message) => this.handleMessage(message));
     socket.on('signUp', (user, fn) => this.signUp(user, fn));
-    socket.on('disconnect', () => this.disconnect());
+      socket.on('disconnect', () => this.disconnect()); 
       socket.on("getUser", (user, fn) => this.getUser(user, fn));
+      socket.on("getUsersContaining", (userPartial, fn) => this.getUsersContaining(userPartial, fn));
       socket.on("authenticate", (user, fn) => this.authenticate(user, fn));
       socket.on("getChatGroup", (userArray, fn) => this.getChatGroup(userArray, fn));
       socket.on("getGroupsByUser", (username) => this.getGroupsByUser(username));
@@ -69,7 +70,7 @@ class Connection {
             .then(result => fn(result))
             .catch(err =>  fn(err));
     }
-
+    
     getUser(user, fn) {
         User.find({ username: user }).then((userReturn) => {
             console.log(userReturn);
@@ -81,6 +82,22 @@ class Connection {
             }
             console.log(user);
             fn(user);
+        }).catch(err => fn(err));
+    }
+
+    getUsersContaining(userPartial, fn) {
+        User.find({ "username": { $regex: ".*" + userPartial+".*" } }).then((userReturn) => {
+            let tempArray = _.map(userReturn, (user) => {
+                return {
+                    _id: user._id,
+                    username: user.username,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    image: user.image
+                }
+            });
+            console.log(tempArray);
+            fn(tempArray);
         }).catch(err => fn(err));
     }
 
