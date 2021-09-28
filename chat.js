@@ -36,8 +36,8 @@ class Connection {
     }
   
     getMessages(user, chatGroup) {
-        console.log("get messages chatgroup");
-        console.log(chatGroup);
+        /*console.log("get messages chatgroup");
+        console.log(chatGroup);*/
         Message.find({ 'group': chatGroup[0]._id }).then((messages) => {
             messages.forEach(message => {
                 message.id = message._id.toHexString();
@@ -48,13 +48,13 @@ class Connection {
 
     handleMessage(message) {
         Message.create({ group: message.chatGroup[0]._id, 'user': message.user, 'text': message.value }).then((newMessage) => {
-            console.log("message" + newMessage);
+            /*console.log("message" + newMessage);*/
             newMessage.id = newMessage._id.toHexString();
 
             ChatGroup.findOneAndUpdate({ _id: message.chatGroup[0]._id }, { $set: { lastMessage: newMessage } })
                 .populate('lastMessage')
                 .then((group) => {
-                    console.log(group);
+                    /*console.log(group);*/
                     this.getGroupsByUser(message.user);
                 }, (err) => next(err))
                 .catch((err) => next(err));
@@ -73,14 +73,15 @@ class Connection {
     
     getUser(user, fn) {
         User.find({ username: user }).then((userReturn) => {
-            console.log(userReturn);
+            /*console.log(userReturn);*/
             let user = {
+                _id: userReturn[0]._id,
                 username: userReturn[0].username,
                 firstname: userReturn[0].firstname,
                 lastname: userReturn[0].lastname,
                 image: userReturn[0].image
             }
-            console.log(user);
+            /*console.log(user);*/
             fn(user);
         }).catch(err => fn(err));
     }
@@ -96,37 +97,35 @@ class Connection {
                     image: user.image
                 }
             });
-            console.log(tempArray);
+            /*console.log(tempArray);*/
             fn(tempArray);
         }).catch(err => fn(err));
     }
 
     authenticate(user, fn) {
         User.find({ username: user.username, password: user.password }).then((userReturn) => {
-            console.log(userReturn);
+            /*console.log(userReturn);*/
             let user = {
                 username: userReturn[0].username,
                 firstname: userReturn[0].firstname,
                 lastname: userReturn[0].lastname,
                 image: userReturn[0].image
             }
-            console.log(user);
+            /*console.log(user);*/
             fn(user);
         }).catch(err => fn(err));
     }
 
     getChatGroup(userArray, fn) {
         userArray = _.uniq(userArray);
-        //fn('return: ' + userArray);
-        console.log("getChatGroup");
-        console.log(userArray);
+        /*console.log("getChatGroup");
+        console.log(userArray);*/
         ChatGroup.find({ users: { $all: userArray } }).then((group) => {
             console.log('group: ' + group);
-            console.log(_.isEqual(group, []));
             
             if (_.isEqual(group, [])) {/// use upsert to create the document if not found instead of this
                 ChatGroup.create({ users: userArray }).then((newGroup) => {
-                    console.log(newGroup);
+                    /*console.log(newGroup);*/
                     fn([newGroup]);
                 });
             } else {
@@ -136,26 +135,25 @@ class Connection {
     }
 
     getGroupsByUser(username) {
-        console.log("getGroupsByUser: "+ username);
+        /*console.log("getGroupsByUser: "+ username);*/
         ChatGroup.find({ users: { $in: [username] } })
             .sort({ 'updatedAt': -1 })
             .populate('lastMessage')
             .then((groups) => {
-            console.log('GroupsByUser: ' + groups);
+            /*console.log('GroupsByUser: ' + groups);*/
             this.sendGroups(groups);
         });
     }
 
     getSelfChatGroup(username, fn) {
-        console.log("getSelfChatGroup");
-        console.log(username);
+        /*console.log("getSelfChatGroup");
+        console.log(username);*/
         ChatGroup.find({ users: [username] }).then((group) => {
-            console.log('group: ' + group);
-            console.log(_.isEqual(group, []));
+            /*console.log('group: ' + group);*/
 
             if (_.isEqual(group, [])) {
                 ChatGroup.create({ users: [username] }).then((newGroup) => {
-                    console.log(newGroup);
+                    /*console.log(newGroup);*/
                     fn([newGroup]);
                 });
             } else {
